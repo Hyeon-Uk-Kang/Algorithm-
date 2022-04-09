@@ -1,28 +1,36 @@
-import sys
+from collections import deque
+tc=int(input())
+while tc>0:
+    s=input()
+    n=int(input())
+    arr=input()[1:-1].split(',')
+    q=deque(arr)
 
-tc = int(input())
-while tc > 0:
-    s = input()
-    n = int(input())
-    arr = input()[1:-1].split(',')
-    r, f, b = 0, 0, 0
-
+    if n==0:
+        q=deque()
+        f,b=0,0
+    r=0
+    flag=0
+    #print(q)
     for i in s:
-        if i == 'R':
-            r += 1
+        if i=='R':
+            r+=1
         else:
-            if r % 2 == 0:
-                f += 1
+            if len(q) == 0:
+                flag = 1
+                print("error")
+                break
             else:
-                b += 1
+                if r % 2 == 0:
+                    q.popleft()
+                else:
+                    q.pop()
 
-    if f + b <= n:
-        arr = arr[f:n - b]
+    if flag==0:
         if r%2==0:
-            print("["+','.join(arr)+"]")
+            print("["+",".join(q)+']')
         else:
-            print("["+','.join(arr[::-1])+"]")
-    else:
-        print("error")
+            q.reverse()
+            print("["+",".join(q)+']')
 
-    tc -= 1
+    tc-=1
