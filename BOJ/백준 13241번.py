@@ -1,0 +1,10 @@
+n,m=map(int,input().split())
+
+def gcd(a,b):
+    if a%b==0:
+        return b
+    return gcd(b,a%b)
+tt=gcd(n,m)
+c1=n//tt
+c2=m//tt
+print(tt*c1*c2)
